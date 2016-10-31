@@ -1,0 +1,22 @@
+{
+    "bridge": {
+        "name": "Homebridge",
+        "username": "CC:22:3D:E3:CE:30",
+        "port": 51826,
+        "pin": "031-45-154"
+    },
+    
+    "description": "This is an example configuration file with all supported devices. You can use this as a template for creating your own configuration file containing devices you actually own.",
+
+    "platforms": [
+        {
+            "platform": "Wink",
+            "name": "Wink",
+            "client_id": "quirky_wink_android_app",
+            "client_secret": "e749124ad386a5a35c0ab554a4f2c045",
+            "username": "your@email.com",
+            "password": "WINK_PASSWORD"
+        }
+    ],
+    "accessories": []
+}
