@@ -21,7 +21,7 @@ _build() {
 
 _run() {
   # Run (first time)
-  docker run -d --net=host -p 51826:51826 -v /etc/homebridge:/root/.homebridge --name $IMAGE_NAME cbrandlehner/homebridge:$VERSION
+  docker run -d --net=host -p 51826:51826 -v /etc/homebridge:/root/.homebridge --name $IMAGE_NAME jstefanny/homebridge:$VERSION
 }
 
 _stop() {
@@ -54,13 +54,13 @@ _logs() {
 }
 
 _push() {
-  docker push cbrandlehner/homebridge:$VERSION
+  docker push rgrasmus/homebridge-docker:$VERSION
 }
 
 _debug() {
   # Run (first time)
   echo "please go to /root and start run.sh"
-  docker run -ti --entrypoint /bin/bash --net=host -p 51826:51826 -v /etc/homebridge:/root/.homebridge --name $IMAGE_NAME cbrandlehner/homebridge:$VERSION 
+  docker run -ti --entrypoint /bin/bash --net=host -p 51826:51826 -v /etc/homebridge:/root/.homebridge --name $IMAGE_NAME rgrasmus/homebridge-docker:$VERSION 
 }
 
 eval _$ACTION
