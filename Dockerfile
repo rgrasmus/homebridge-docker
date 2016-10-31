@@ -36,9 +36,7 @@ RUN npm install -g homebridge --unsafe-perm
 #RUN npm install -g homebridge-tesla --unsafe-perm
 #RUN npm install -g homebridge-mqttswitch --unsafe-perm
 #RUN npm install -g homebridge-edomoticz --unsafe-perm
-RUN npm install -g homebridge-homeassistant --unsafe-perm
 
-RUN pip3 install homeassistant
 
 ##################################################
 # Start                                          #
