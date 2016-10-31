@@ -27,15 +27,18 @@ RUN alias ll='ls -alG'
 RUN npm install -g homebridge --unsafe-perm
 
 # depending on your config.json you have to add your modules here!
-RUN npm install -g homebridge-philipshue --unsafe-perm
-RUN npm install -g homebridge-ninjablock-temperature --unsafe-perm
-RUN npm install -g homebridge-ninjablock-humidity --unsafe-perm
-RUN npm install -g homebridge-ninjablock-alarmstatedevice --unsafe-perm
-RUN npm install -g homebridge-luxtronik2 --unsafe-perm
-RUN npm install -g homebridge-people --unsafe-perm
-RUN npm install -g homebridge-tesla --unsafe-perm
+#RUN npm install -g homebridge-philipshue --unsafe-perm
+#RUN npm install -g homebridge-ninjablock-temperature --unsafe-perm
+#RUN npm install -g homebridge-ninjablock-humidity --unsafe-perm
+#RUN npm install -g homebridge-ninjablock-alarmstatedevice --unsafe-perm
+#RUN npm install -g homebridge-luxtronik2 --unsafe-perm
+#RUN npm install -g homebridge-people --unsafe-perm
+#RUN npm install -g homebridge-tesla --unsafe-perm
 #RUN npm install -g homebridge-mqttswitch --unsafe-perm
 #RUN npm install -g homebridge-edomoticz --unsafe-perm
+RUN npm install -g homebridge-homeassistant --unsafe-perm
+
+RUN pip3 install homeassistant
 
 ##################################################
 # Start                                          #
@@ -46,5 +49,8 @@ RUN mkdir -p /var/run/dbus
 
 ADD image/run.sh /root/run.sh
 
+EXPOSE 5353 51826
+EXPOSE 8123 51827
+CMD ["/root/run.sh"]
 EXPOSE 5353 51826
 CMD ["/root/run.sh"]
