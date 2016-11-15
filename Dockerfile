@@ -17,7 +17,8 @@ RUN apt-get update
 RUN apt-get install -y apt-utils 
 RUN apt-get install -y apt-transport-https
 RUN apt-get install -y locales
-RUN apt-get install -y curl wget git python build-essential make g++ libavahi-compat-libdnssd-dev libkrb5-dev vim net-tools nano nodejs=5.12.0
+RUN apt-get install -y curl wget git python build-essential make g++ libavahi-compat-libdnssd-dev libkrb5-dev vim net-tools nano 
+RUN apt-get install -y nodejs=5.12.0
 RUN alias ll='ls -alG'
 
 # Install Homebridge
