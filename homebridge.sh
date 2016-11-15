@@ -4,63 +4,67 @@ BASEDIR=$(dirname $0)
 cd $BASEDIR
 
 VERSION=$(<VERSION)
-IMAGE_NAME=homebridge-v$VERSION
+IMAGE_NAME="marcoraddatz/homebridge"
+CONTAINER_NAME=Homebridge
 
 ACTION=$1
 
 if [ -z "$ACTION" ];
   then
-    echo "usage: $0 <build|run|stop|start|remove|rerun|attach|push|logs>";
+    echo "usage: $0 <build|run|stop|start|remove|rerun|attach|push|logs|debug>";
     exit 1;
 fi
 
+# Build
 _build() {
-  # Build
-  docker build --tag="cbrandlehner/homebridge:$VERSION" .
+  docker build --tag="$IMAGE_NAME:$VERSION" .
 }
 
+# Run (first time)
 _run() {
-  # Run (first time)
-  docker run -d --net=host -p 51826:51826 -v /etc/homebridge:/root/.homebridge --name $IMAGE_NAME jstefanny/homebridge:$VERSION
+  docker run -d --name $CONTAINER_NAME --net=host -p 51826:51826 -v /volume1/docker/homebridge:/root/.homebridge $IMAGE_NAME:$VERSION
 }
 
+# Debugging mode with terminal access
+_debug() {
+  docker run -i -t --entrypoint /bin/bash --name $CONTAINER_NAME --net=host -p 51826:51826 -v /volume1/docker/homebridge:/root/.homebridge $IMAGE_NAME:$VERSION
+}
+
+# Stop
 _stop() {
-  # Stop
-  docker stop $IMAGE_NAME
+  docker stop $CONTAINER_NAME
 }
 
+# Start (after stopping)
 _start() {
-  # Start (after stopping)
-  docker start $IMAGE_NAME
+  docker start $CONTAINER_NAME
 }
 
+# Remove
 _remove() {
-  # Remove
-  docker rm $IMAGE_NAME
+  docker rm $CONTAINER_NAME
 }
 
+# Remove container and create a new one
 _rerun() {
   _stop
   _remove
   _run
 }
 
+# Manually open bash
 _attach() {
-  docker exec -ti $IMAGE_NAME bash
+  docker exec -ti $CONTAINER_NAME bash
 }
 
+# Container logs
 _logs() {
-  docker logs $IMAGE_NAME
+  docker logs $CONTAINER_NAME
 }
 
+# Publish contents
 _push() {
-  docker push rgrasmus/homebridge-docker:$VERSION
-}
-
-_debug() {
-  # Run (first time)
-  echo "please go to /root and start run.sh"
-  docker run -ti --entrypoint /bin/bash --net=host -p 51826:51826 -v /etc/homebridge:/root/.homebridge --name $IMAGE_NAME rgrasmus/homebridge-docker:$VERSION 
+  docker push $IMAGE_NAME:$VERSION
 }
 
 eval _$ACTION
